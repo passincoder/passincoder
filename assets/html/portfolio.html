@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PORTFOLIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/portfolioStyle.css">
+</head>
+
+<body>
+    <div id="navigationMenuBackground"></div>
+
+    <a href="../../index.html" class="logo"><img src="../../images/logopng.png" alt=""></a>
+    <header>
+
+        <div class="topnav" id="myTopnav">
+            <div class="navItems">
+                <a href="../../index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="portfolio.html" class="active">Portfolio</a>
+                <a href="video.html">Video</a>
+                <a href="contact.html">Contact</a></div>
+
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+
+    </header>
+    <div class="followEye">
+        <main id="cartoonanim">
+            <img id="anchor" src="../../images/cartface.jpg" alt="">
+            <div id="eyes">
+                <img id="lefteye" class="eye" src="../../images/eyeleft.png" alt="">
+                <img id="righteye" class="eye" src="../../images/eyeright.png" alt="">
+            </div>
+        </main>
+    </div>
+    <a class="backIcon" href="../../index.html#scrollToCharriot"><img src="../../images/ARROWBACK.png" alt=""></a>
+    <section id="home">
+        <!-- Header -->
+        <div class="heading">
+            <h1>My Portfolio</h1>
+            <p>These are some of my creations</p>
+        </div>
+
+        <!-- Photo Grid -->
+        <div class="row">
+            <div class="column">
+                <img src="../../images/portfolio/002.jpg" style="width:100%">
+                <img src="../../images/portfolio/001.jpg" style="width:100%">
+                <img src="../../images/portfolio/003.jpg" style="width:100%">
+                <img src="../../images/portfolio/008.jpg" style="width:100%">
+                <img src="../../images/portfolio/005.jpg" style="width:100%">
+                <img src="../../images/portfolio/023.jpg" style="width:100%">
+
+            </div>
+            <div class="column">
+                <img src="../../images/portfolio/009.jpg" style="width:100%">
+                <img src="../../images/portfolio/004.png" style="width:100%">
+                <img src="../../images/portfolio/010.jpg" style="width:100%">
+                <img src="../../images/portfolio/011.jpg" style="width:100%">
+                <img src="../../images/portfolio/012.jpg" style="width:100%">
+                <img src="../../images/portfolio/013.jpg" style="width:100%">
+                <img src="../../images/portfolio/015.jpg" style="width:100%">
+            </div>
+            <div class="column">
+                <img src="../../images/portfolio/014.jpg" style="width:100%">
+                <img src="../../images/portfolio/024.jpg" style="width:100%">
+                <img src="../../images/portfolio/016.jpg" style="width:100%">
+                <img src="../../images/portfolio/017.jpg" style="width:100%">
+
+
+
+            </div>
+            <div class="column">
+                <img src="../../images/portfolio/021.jpg" style="width:100%">
+                <img src="../../images/portfolio/022.jpg" style="width:100%">
+                <img src="../../images/portfolio/025.jpg" style="width:100%">
+                <img src="../../images/portfolio/018.jpg" style="width:100%">
+                <img src="../../images/portfolio/020.jpg" style="width:100%">
+                <img src="../../images/portfolio/007.png" style="width:100%">
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+        // followmouse
+
+        document.addEventListener("mousemove", (e) => {
+            console.log(e);
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const anchor = document.getElementById("anchor");
+            const rekt = anchor.getBoundingClientRect();
+            const anchorX = rekt.left + rekt.width / 2;
+            const anchorY = rekt.top + rekt.height / 2;
+
+            const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
+
+            console.log(angleDeg);
+
+            const eyes = document.querySelectorAll(".eye");
+            eyes.forEach((eye) => {
+                eye.style.transform = `rotate(${90 + angleDeg}deg)`;
+                anchor.style.filter = `hue-rotate(${angleDeg}deg) `;
+                eye.style.filter = `hue-rotate(${angleDeg}deg)  `;
+            });
+        });
+
+        function angle(cx, cy, ex, ey) {
+            const dy = ey - cy;
+            const dx = ex - cx;
+            const rad = Math.atan2(dy, dx);
+            const deg = (rad * 180) / Math.PI;
+            return deg;
+        }
+
+        // shuffle images
+        let shuffleInterval;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function shuffleImagesInColumns() {
+            const columns = document.querySelectorAll('.column');
+
+            columns.forEach(column => {
+                const images = Array.from(column.querySelectorAll('img'));
+                const shuffledImages = shuffleArray(images);
+
+                // Clear the column and append shuffled images
+                column.innerHTML = '';
+                shuffledImages.forEach(image => {
+                    column.appendChild(image);
+                });
+            });
+        }
+
+        // Start shuffling the images every 5 seconds
+        shuffleInterval = setInterval(shuffleImagesInColumns, 5000);
+
+        // Stop shuffling on hover
+        const columns = document.querySelectorAll('.column');
+        columns.forEach(column => {
+            column.addEventListener('mouseenter', () => {
+                clearInterval(shuffleInterval);
+            });
+            column.addEventListener('mouseleave', () => {
+                // Start shuffling again when leaving hover
+                shuffleInterval = setInterval(shuffleImagesInColumns, 5000);
+            });
+        });
+
+        // Function to enlarge an image on click
+        // Function to create and display an enlarged image
+        let enlargedImage = null;
+
+        function showEnlargedImage(image) {
+            enlargedImage = image.cloneNode();
+            enlargedImage.classList.add('enlarged-image');
+            document.body.appendChild(enlargedImage);
+
+            // Add a click event listener to the enlarged image to close it on click
+            enlargedImage.addEventListener('click', () => {
+                removeEnlargedImage();
+                toggleDimClass(false);
+            });
+
+            // Dim the other images
+            toggleDimClass(true);
+        }
+
+        // Function to remove the enlarged image
+        function removeEnlargedImage() {
+            if (enlargedImage) {
+                enlargedImage.remove();
+                enlargedImage = null;
+                toggleDimClass(false);
+            }
+        }
+
+        // Function to toggle the dim class on the column containers
+        function toggleDimClass(add) {
+            const columns = document.querySelectorAll('.column');
+            columns.forEach(column => {
+                if (add) {
+                    column.classList.add('dim');
+                } else {
+                    column.classList.remove('dim');
+                }
+            });
+        }
+
+        // Function to enlarge an image on click
+        function enlargeImage(event) {
+            const clickedImage = event.currentTarget;
+
+            // Check if the clicked image is already enlarged
+            const isEnlarged = clickedImage.classList.contains('enlarged');
+
+            // Close the existing enlarged image if present
+            if (enlargedImage) {
+                removeEnlargedImage();
+            }
+
+            // If the clicked image is not already enlarged, show it
+            if (!isEnlarged) {
+                showEnlargedImage(clickedImage);
+            }
+        }
+
+        // Attach click event listeners to images
+        const images = document.querySelectorAll('.column img');
+        images.forEach(image => {
+            image.addEventListener('click', enlargeImage);
+        });
+    </script>
+
+</body>
+
+</html>
