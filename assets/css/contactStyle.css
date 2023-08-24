@@ -345,6 +345,12 @@ p {
     text-align: left;
     color: white;
     /* Set the color to white */
+  }  
+  .navItems {
+    background-color: #000000;
+    color: #e7e7e7;
+    margin-top: 3%;
+    width: auto;
   }
   .navItems a:hover {
     background: #e7e7e7;
