@@ -820,7 +820,8 @@ section img#bigHouse {
     text-align: left;
     color: white;
     /* Set the color to white */
-  }  .navItems {
+  } 
+  .navItems {
     background-color: #000000;
     color: #e7e7e7;
     margin-top: 3%;
